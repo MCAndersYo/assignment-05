@@ -23,6 +23,39 @@ public class ProgramTests
     }
 
     [Fact]
+    public void Legendary_item_quality_always_80(){
+        program.Items = new List<Item>{
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
+        };
+
+        program.UpdateQuality();
+        int actual_LegendaryQual = program.Items[0].Quality;
+
+        actual_LegendaryQual.Should().Be(80);
+        
+        program.UpdateQuality();
+        actual_LegendaryQual = program.Items[0].Quality;
+
+        actual_LegendaryQual.Should().Be(80);
+    }
+    [Fact] 
+    public void Legendary_item_SellIn_static(){
+                program.Items = new List<Item>{
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
+        };
+
+        program.UpdateQuality();
+        int actual_LegendarySellIn = program.Items[0].SellIn;
+
+        actual_LegendarySellIn.Should().Be(0);
+        
+        program.UpdateQuality();
+        actual_LegendarySellIn = program.Items[0].SellIn;
+
+        actual_LegendarySellIn.Should().Be(0);
+    }
+
+    [Fact]
     public void Test_normal_item_degrades_twice_fast_after_sell()
     {
         program.Items = new List<Item>{
