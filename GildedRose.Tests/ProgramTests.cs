@@ -8,7 +8,7 @@ public class ProgramTests
     [Fact]
     public void Test_negative_quality()
     {
-
+        
     }
 
     [Fact]
@@ -100,16 +100,16 @@ public class ProgramTests
         actual_brieQ.Should().Be(12);
     }
 
-[Fact]
-public void Test_backstage_increase_10_days_before_sell()
-{
-
-}
-[Fact]
-public void Test_backstage_increase_5_days_before_sell()
-{
-
-}
+    [Fact]
+    public void Test_backstage_increase_10_days_before_sell()
+    {
+        
+    }
+    [Fact]
+    public void Test_backstage_increase_5_days_before_sell()
+    {
+        
+    }
 
 
 [Fact]
@@ -117,4 +117,5 @@ public void Test_backstage_after_sell_worth_0()
 {
 
 }
+>>>>>>> 92abe2dd35f9e39cdaa772419c8f896916f96b78
 }
