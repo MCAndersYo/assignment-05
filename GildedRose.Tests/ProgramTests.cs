@@ -103,7 +103,21 @@ public class ProgramTests
     [Fact]
     public void Test_backstage_increase_10_days_before_sell()
     {
-        
+         //Arrange
+        var program = new Program(){
+        Items = new List<Item> {
+            new Item{
+                     Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 10,
+                    Quality = 38
+                    }}
+        };
+
+        //Act
+        program.UpdateQuality();
+
+        //Assert
+        program.Items[0].Quality.Should().Be(40);
     }
     [Fact]
     public void Test_backstage_increase_5_days_before_sell()
