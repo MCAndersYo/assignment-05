@@ -56,6 +56,20 @@ public class ProgramTests
     }
 
     [Fact]
+    public void Conjured_items_degrade_twice(){
+        program.Items = new List<Item>{
+            new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = 10 },
+            new Item { Name = "Conjured Cake", SellIn = 0, Quality = 10}
+        };
+
+        program.UpdateQuality();
+        int actual_manaQual = program.Items[0].Quality;
+        int actual_CakeQual = program.Items[1].Quality;
+
+        actual_manaQual.Should().Be(8);
+        actual_CakeQual.Should().Be(6);
+    }
+    [Fact]
     public void Test_normal_item_degrades_twice_fast_after_sell()
     {
         program.Items = new List<Item>{
