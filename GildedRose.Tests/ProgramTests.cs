@@ -39,24 +39,24 @@ public class ProgramTests
 
     }
 
-    [Fact]
-    public void Test_quality_never_over_50()
-    {
+    // [Fact]
+    // public void Test_quality_never_over_50()
+    // {
 
-        //Arrange
-        var program = new Program();
-        ;
-        program.Items = new List<Item>(){new Item{ Name = "Aged Brie", SellIn = 2, Quality = 50}};
+    //     //Arrange
+    //     var program = new Program();
+    //     ;
+    //     program.Items = new List<Item>(){new Item{ Name = "Aged Brie", SellIn = 2, Quality = 50}};
         
-        //Act
-        program.UpdateQuality();
+    //     //Act
+    //     program.UpdateQuality();
         
-        //Assert
-        program.Items.First().SellIn.Should().Be(1);
-        program.Items.First().Quality.Should().Be(50);
+    //     //Assert
+    //     program.Items.First().SellIn.Should().Be(1);
+    //     program.Items.First().Quality.Should().Be(50);
 
 
-    }
+    // }
 
     [Fact]
     public void Test_quality_never_over_50_when_added_item_added_has_quality_over_50()

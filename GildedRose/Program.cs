@@ -154,4 +154,9 @@ namespace GildedRose
         public int Quality { get; set; }
     }
 
+    public enum ItemType{
+        Backstage,
+        Normal
+    }
+
 }
