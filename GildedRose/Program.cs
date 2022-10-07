@@ -154,9 +154,18 @@ namespace GildedRose
         public int Quality { get; set; }
     }
 
-    public enum ItemType{
-        Backstage,
-        Normal
+    public class OurItem : Item{
+        public void UpdateQuality(){
+            throw new NotImplementedException();
+        }
     }
+
+    public class Backstage : OurItem{
+        
+        public void UpdateQuality(){
+            int i = 2+2;
+        }
+    }
+
 
 }
