@@ -192,13 +192,40 @@ public class ProgramTests
     [Fact]
     public void Test_backstage_increase_5_days_before_sell()
     {
-        
-    }
+         //Arrange
+        var program = new Program(){
+        Items = new List<Item> {
+            new Item{
+                     Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 5,
+                    Quality = 38
+                    }}
+        };
 
+        //Act
+        program.UpdateQuality();
+
+        //Assert
+        program.Items[0].Quality.Should().Be(41);
+    }
 
     [Fact]
     public void Test_backstage_after_sell_worth_0()
     {
+        //Arrange
+            var program = new Program(){
+            Items = new List<Item> {
+                new Item{
+                        Name = "Backstage passes to a TAFKAL80ETC concert",
+                        SellIn = 0,
+                        Quality = 50
+                        }}
+            };
 
+            //Act
+            program.UpdateQuality();
+
+            //Assert
+            program.Items[0].Quality.Should().Be(0);
     }
 }
