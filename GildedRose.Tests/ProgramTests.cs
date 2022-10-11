@@ -262,7 +262,33 @@ public class ProgramTests
 
     }
 
+    [Fact]
+    public void sulfuras_updateItem_should_not_change_quality_or_sellIn(){
+        var updater = new UpdateSulfuras();
+        var item = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 };
+        updater.updateItem(item);
+        
+        item.SellIn.Should().Be(0);
+        item.Quality.Should().Be(80);
+    }
 
+    [Fact]
+    public void normal_item_updateItem_should_lower_quality_and_sellIn_by_1_when_sellIn_more_than_0(){
+        var updater = new UpdateNormal();
+        var item = new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
+        updater.updateItem(item);
+        item.SellIn.Should().Be(9);
+        item.Quality.Should().Be(19);
+    }
+
+    [Fact]
+    public void normal_item_updateItem_should_lower_quality_by_2_and_sellIn_by_1_when_sellIn_less_than_0(){
+        var updater = new UpdateNormal();
+        var item = new Item { Name = "+5 Dexterity Vest", SellIn = 0, Quality = 20 };
+        updater.updateItem(item);
+        item.SellIn.Should().Be(-1);
+        item.Quality.Should().Be(18);
+    }
 
 
 }
