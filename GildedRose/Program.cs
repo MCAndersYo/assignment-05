@@ -5,31 +5,34 @@ namespace GildedRose
 {
     public class Program
     {
-        public IList<Item> Items;
+        public IList<Item>? Items;
         public Factory factory = new Factory();
-        static void Main(string[] args)
-        {
-            System.Console.WriteLine("OMGHAI!");
+         static void Main(string[] args)
+         {
+        //     System.Console.WriteLine("OMGHAI!");
 
-            var app = new Program();
-            app.fillUpItemList();
+        //     var app = new Program();
+        //     app.fillUpItemList();
 
-            for (var i = 0; i < 31; i++)
-            {
-                Console.WriteLine("-------- day " + i + " --------");
-                Console.WriteLine("name, sellIn, quality");
-                for (var j = 0; j < app.Items.Count; j++)
-                {
-                    Console.WriteLine(app.Items[j].Name + ", " + app.Items[j].SellIn + ", " + app.Items[j].Quality);
-                }
-                Console.WriteLine("");
-                app.UpdateQuality();
-            }
+        //     for (var i = 0; i < 31; i++)
+        //     {
+        //         Console.WriteLine("-------- day " + i + " --------");
+        //         Console.WriteLine("name, sellIn, quality");
+        //         for (var j = 0; j < app.Items.Count; j++)
+        //         {
+        //             Console.WriteLine(app.Items[j].Name + ", " + app.Items[j].SellIn + ", " + app.Items[j].Quality);
+        //         }
+        //         Console.WriteLine("");
+        //         app.UpdateQuality();
+        //     }
 
-        }
+         }
 
         public void UpdateQuality(){
             foreach (Item item in Items){
+                if(item.Quality < 0){
+                    item.Quality = 0;
+                }
                 factory.create(item).updateItem(item);
             }
         }
@@ -60,7 +63,6 @@ namespace GildedRose
                     SellIn = 5,
                     Quality = 49
                 },
-				// this conjured item does not work properly yet
 				new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
             };
         }

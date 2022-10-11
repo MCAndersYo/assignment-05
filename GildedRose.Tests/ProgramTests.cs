@@ -23,12 +23,15 @@ public class ProgramTests
 
     }
 
+    [Fact]
     public void Test_never_quality_when_added_item_has_negative_quality()
     {
         //Arrange
         var program = new Program();
         ;
-        program.Items = new List<Item>(){new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = -1 }};
+        program.Items = new List<Item>(){
+            new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = -1 }
+            };
         
         //Act
         program.UpdateQuality();
@@ -42,7 +45,6 @@ public class ProgramTests
     [Fact]
     public void Test_quality_never_over_50()
     {
-
         //Arrange
         var program = new Program();
         ;
@@ -54,17 +56,14 @@ public class ProgramTests
         //Assert
         program.Items.First().SellIn.Should().Be(1);
         program.Items.First().Quality.Should().Be(50);
-
-
     }
 
     [Fact]
     public void Test_normal_item_degrades_before_sell()
     {
-
         //Arrange
         var program = new Program();
-        ;
+        
         program.Items = new List<Item>(){new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = 10}};
         
         //Act
@@ -73,7 +72,6 @@ public class ProgramTests
         //Assert
         program.Items.First().SellIn.Should().Be(9);
         program.Items.First().Quality.Should().Be(9);
-
     }
 
     [Fact]
@@ -212,4 +210,59 @@ public class ProgramTests
             //Assert
             program.Items[0].Quality.Should().Be(0);
     }
+
+    [Fact]
+    public void test_Conjured_degrade_double_speed(){
+        var program = new Program();
+        program.Items = new List<Item> {
+            new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
+            };
+        
+        program.UpdateQuality();
+
+        program.Items[0].Quality.Should().Be(4);
+
+    }
+
+    [Fact]
+    public void test_FillUpItemList_Check_if_items_are_filled(){
+        var program = new Program();
+        program.fillUpItemList();
+
+        IList<Item> oldList = program.Items;
+
+        oldList.Should().BeEquivalentTo(new List<Item>
+            {
+                new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 },
+                new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 },
+                new Item { Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7 },
+                new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
+                new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 15,
+                    Quality = 20
+                },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 10,
+                    Quality = 49
+                },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 5,
+                    Quality = 49
+                },
+				// this conjured item does not work properly yet
+				new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
+            });
+
+    }
+
+
+
+
 }
