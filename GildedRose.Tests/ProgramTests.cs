@@ -262,7 +262,64 @@ public class ProgramTests
 
     }
 
+    [Fact]
+    public void test_UpdateBackstage_11Days(){
+        var item = new Item {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 11,
+                    Quality = 28
+                    };
 
+        var update = new UpdateBackstage();
+
+        update.updateItem(item);
+        item.SellIn.Should().Be(10);
+        item.Quality.Should().Be(30);
+    }
+
+     [Fact]
+    public void test_UpdateBackstage_4Days(){
+        var item = new Item {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 4,
+                    Quality = 25
+                    };
+
+        var update = new UpdateBackstage();
+
+        update.updateItem(item);
+        item.SellIn.Should().Be(3);
+        item.Quality.Should().Be(28);
+    }
+
+    [Fact]
+    public void test_UpdateBackstage_0Days(){
+        var item = new Item {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 0,
+                    Quality = 25
+                    };
+
+        var update = new UpdateBackstage();
+
+        update.updateItem(item);
+        item.SellIn.Should().Be(-1);
+        item.Quality.Should().Be(0);
+    }
+
+    [Fact]
+    public void test_UpdateConjured_10Days(){
+        var item =  new Item { 
+            Name = "Conjured Mana Cake", 
+            SellIn = 10, 
+            Quality = 10 };
+
+        var update = new UpdateConjured();
+
+        update.updateItem(item);
+        item.SellIn.Should().Be(9);
+        item.Quality.Should().Be(8);
+    }
 
 
 }
