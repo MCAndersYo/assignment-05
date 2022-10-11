@@ -264,7 +264,6 @@ public class ProgramTests
                     SellIn = 5,
                     Quality = 49
                 },
-				// this conjured item does not work properly yet
 				new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
             });
     }
@@ -377,6 +376,52 @@ public class ProgramTests
         updater.updateItem(item);
         item.SellIn.Should().Be(-1);
         item.Quality.Should().Be(18);
+    }
+
+    [Fact]
+    public void test_factory_normal(){
+        var itemNormal =  new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
+        var factory = new Factory();
+
+       var normal = new UpdateNormal();
+       factory.create(itemNormal).ToString().Should().Be(normal.ToString());
+    }
+
+    [Fact]
+    public void test_factory_Brie(){
+        var itemBrie = new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 };
+        var factory = new Factory();
+       var normal = new UpdateAgedBrie();
+       factory.create(itemBrie).ToString().Should().Be(normal.ToString());
+    }
+
+    [Fact]
+    public void test_factory_Sulfras(){
+        var itemSulfras =  new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 };
+        var factory = new Factory();
+       var normal = new UpdateSulfuras();
+       factory.create(itemSulfras).ToString().Should().Be(normal.ToString());
+    }
+
+      [Fact]
+    public void test_factory_Bakcstage(){
+         var itemBackstage = new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 15,
+                    Quality = 20
+                };
+        var factory = new Factory();
+       var normal = new UpdateBackstage();
+       factory.create(itemBackstage).ToString().Should().Be(normal.ToString());
+    }
+
+      [Fact]
+    public void test_factory_Conjured(){
+        var itemConjured = new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 };
+        var factory = new Factory();
+       var normal = new UpdateConjured();
+       factory.create(itemConjured).ToString().Should().Be(normal.ToString());
     }
 
 }
