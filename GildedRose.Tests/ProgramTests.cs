@@ -59,22 +59,6 @@ public class ProgramTests
     }
 
     [Fact]
-    public void Test_quality_never_over_50_when_added_item_added_has_quality_over_50()
-    {
-        //Arrange
-        var program = new Program();
-        ;
-        program.Items = new List<Item>(){new Item{ Name = "Aged Brie", SellIn = 2, Quality = 80}};
-        
-        //Act
-        program.UpdateQuality();
-        
-        //Assert
-        program.Items.First().SellIn.Should().Be(1);
-        program.Items.First().Quality.Should().Be(50);
-    }
-
-    [Fact]
     public void Test_normal_item_degrades_before_sell()
     {
 
@@ -129,7 +113,7 @@ public class ProgramTests
     public void Conjured_items_degrade_twice(){
         program.Items = new List<Item>{
             new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = 10 },
-            new Item { Name = "Conjured Cake", SellIn = 0, Quality = 10}
+            new Item { Name = "Conjured Mana Cake", SellIn = 0, Quality = 10}
         };
 
         program.UpdateQuality();
