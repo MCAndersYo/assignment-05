@@ -108,22 +108,6 @@ public class ProgramTests
 
         actual_LegendarySellIn.Should().Be(0);
     }
-
-    [Fact]
-    public void Conjured_items_degrade_twice()
-    {
-        program.Items = new List<Item>{
-            new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = 10 },
-            new Item { Name = "Conjured Mana Cake", SellIn = 0, Quality = 10}
-        };
-
-        program.UpdateQuality();
-        int actual_manaQual = program.Items[0].Quality;
-        int actual_CakeQual = program.Items[1].Quality;
-
-        actual_manaQual.Should().Be(8);
-        actual_CakeQual.Should().Be(6);
-    }
     [Fact]
     public void Test_normal_item_degrades_twice_fast_after_sell()
     {
@@ -229,6 +213,16 @@ public class ProgramTests
 
         program.Items[0].Quality.Should().Be(4);
 
+    }
+    [Fact]
+    public void test_conjured_quality_cant_go_under_0(){
+        var program = new Program();
+        program.Items = new List<Item> {
+            new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 1}
+        };
+        program.UpdateQuality();
+
+        program.Items[0].Quality.Should().Be(0);
     }
 
     [Fact]
