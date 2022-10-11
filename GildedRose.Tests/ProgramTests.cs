@@ -12,11 +12,11 @@ public class ProgramTests
         //Arrange
         var program = new Program();
         ;
-        program.Items = new List<Item>(){new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = 0 }};
-        
+        program.Items = new List<Item>() { new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 0 } };
+
         //Act
         program.UpdateQuality();
-        
+
         //Assert
         program.Items.First().SellIn.Should().Be(9);
         program.Items.First().Quality.Should().Be(0);
@@ -32,10 +32,10 @@ public class ProgramTests
         program.Items = new List<Item>(){
             new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = -1 }
             };
-        
+
         //Act
         program.UpdateQuality();
-        
+
         //Assert
         program.Items.First().SellIn.Should().Be(9);
         program.Items.First().Quality.Should().Be(0);
@@ -48,11 +48,11 @@ public class ProgramTests
         //Arrange
         var program = new Program();
         ;
-        program.Items = new List<Item>(){new Item{ Name = "Aged Brie", SellIn = 2, Quality = 50}};
-        
+        program.Items = new List<Item>() { new Item { Name = "Aged Brie", SellIn = 2, Quality = 50 } };
+
         //Act
         program.UpdateQuality();
-        
+
         //Assert
         program.Items.First().SellIn.Should().Be(1);
         program.Items.First().Quality.Should().Be(50);
@@ -63,19 +63,20 @@ public class ProgramTests
     {
         //Arrange
         var program = new Program();
-        
-        program.Items = new List<Item>(){new Item{ Name = "+5 Dexterity Vest", SellIn = 10, Quality = 10}};
-        
+
+        program.Items = new List<Item>() { new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 10 } };
+
         //Act
         program.UpdateQuality();
-        
+
         //Assert
         program.Items.First().SellIn.Should().Be(9);
         program.Items.First().Quality.Should().Be(9);
     }
 
     [Fact]
-    public void Legendary_item_quality_always_80(){
+    public void Legendary_item_quality_always_80()
+    {
         program.Items = new List<Item>{
             new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
         };
@@ -84,15 +85,16 @@ public class ProgramTests
         int actual_LegendaryQual = program.Items[0].Quality;
 
         actual_LegendaryQual.Should().Be(80);
-        
+
         program.UpdateQuality();
         actual_LegendaryQual = program.Items[0].Quality;
 
         actual_LegendaryQual.Should().Be(80);
     }
-    [Fact] 
-    public void Legendary_item_SellIn_static(){
-                program.Items = new List<Item>{
+    [Fact]
+    public void Legendary_item_SellIn_static()
+    {
+        program.Items = new List<Item>{
             new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
         };
 
@@ -100,7 +102,7 @@ public class ProgramTests
         int actual_LegendarySellIn = program.Items[0].SellIn;
 
         actual_LegendarySellIn.Should().Be(0);
-        
+
         program.UpdateQuality();
         actual_LegendarySellIn = program.Items[0].SellIn;
 
@@ -108,7 +110,8 @@ public class ProgramTests
     }
 
     [Fact]
-    public void Conjured_items_degrade_twice(){
+    public void Conjured_items_degrade_twice()
+    {
         program.Items = new List<Item>{
             new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = 10 },
             new Item { Name = "Conjured Mana Cake", SellIn = 0, Quality = 10}
@@ -155,9 +158,10 @@ public class ProgramTests
     [Fact]
     public void Test_backstage_increase_10_days_before_sell()
     {
-         //Arrange
-        var program = new Program(){
-        Items = new List<Item> {
+        //Arrange
+        var program = new Program()
+        {
+            Items = new List<Item> {
             new Item{
                      Name = "Backstage passes to a TAFKAL80ETC concert",
                     SellIn = 10,
@@ -174,9 +178,10 @@ public class ProgramTests
     [Fact]
     public void Test_backstage_increase_5_days_before_sell()
     {
-         //Arrange
-        var program = new Program(){
-        Items = new List<Item> {
+        //Arrange
+        var program = new Program()
+        {
+            Items = new List<Item> {
             new Item{
                      Name = "Backstage passes to a TAFKAL80ETC concert",
                     SellIn = 5,
@@ -195,29 +200,31 @@ public class ProgramTests
     public void Test_backstage_after_sell_worth_0()
     {
         //Arrange
-            var program = new Program(){
+        var program = new Program()
+        {
             Items = new List<Item> {
                 new Item{
                         Name = "Backstage passes to a TAFKAL80ETC concert",
                         SellIn = 0,
                         Quality = 50
                         }}
-            };
+        };
 
-            //Act
-            program.UpdateQuality();
+        //Act
+        program.UpdateQuality();
 
-            //Assert
-            program.Items[0].Quality.Should().Be(0);
+        //Assert
+        program.Items[0].Quality.Should().Be(0);
     }
 
     [Fact]
-    public void test_Conjured_degrade_double_speed(){
+    public void test_Conjured_degrade_double_speed()
+    {
         var program = new Program();
         program.Items = new List<Item> {
             new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
             };
-        
+
         program.UpdateQuality();
 
         program.Items[0].Quality.Should().Be(4);
@@ -225,11 +232,12 @@ public class ProgramTests
     }
 
     [Fact]
-    public void test_FillUpItemList_Check_if_items_are_filled(){
+    public void test_FillUpItemList_Check_if_items_are_filled()
+    {
         var program = new Program();
         program.fillUpItemList();
 
-        IList<Item> oldList = program.Items;
+        IList<Item> oldList = program.Items!;
 
         oldList.Should().BeEquivalentTo(new List<Item>
             {
@@ -259,7 +267,28 @@ public class ProgramTests
 				// this conjured item does not work properly yet
 				new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
             });
+    }
+    [Fact]
+    public void test_update_aged_brie()
+    {
+        UpdateAgedBrie upd = new UpdateAgedBrie();
+        Item brie = new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 };
+        Item brieTwo = new Item { Name = "Aged Brie", SellIn = 0, Quality = 0 };
+        Item brieCapped = new Item { Name = "Aged Brie", SellIn = 0, Quality = 50 };
 
+
+        upd.updateItem(brie);
+        upd.updateItem(brieTwo);
+        upd.updateItem(brieCapped);
+
+        brie.SellIn.Should().Be(1);
+        brie.Quality.Should().Be(1);
+
+        brieTwo.SellIn.Should().Be(-1);
+        brieTwo.Quality.Should().Be(2);
+
+        brieCapped.SellIn.Should().Be(-1);
+        brieCapped.Quality.Should().Be(50);
     }
 
     [Fact]
@@ -289,6 +318,5 @@ public class ProgramTests
         item.SellIn.Should().Be(-1);
         item.Quality.Should().Be(18);
     }
-
 
 }
